@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -121,3 +125,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# FTP settings
+FTP_HOST = os.getenv('ftp_host')
+FTP_PORT = int(os.getenv('ftp_port', 21))
+FTP_USER = os.getenv('ftp_user')
+FTP_PASSWORD = os.getenv('ftp_pass')
+FTP_PASS_HASH_KEY = os.getenv('ftp_pass_hash_key')

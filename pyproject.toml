@@ -8,6 +8,8 @@ authors = ["DBWtv <dima.bwc@gmail.com>"]
 python = "^3.10"
 pyftpdlib = "^1.5.9"
 Django = "^4.2.7"
+python-dotenv = "^1.0.0"
+cryptography = "^41.0.7"
 
 [tool.poetry.dev-dependencies]
 

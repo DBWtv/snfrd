@@ -1,17 +1,6 @@
 from ftplib import FTP
-from cryptography.fernet import Fernet
-
-
-class Encoder(Fernet):
-
-    def __init__(self, key: str):
-        super().__init__(key)
-
-    def encrypt(self, password: str) -> str:
-        return super().encrypt(password.encode()).decode()
-
-    def decrypt(self, password: str) -> str:
-        return super().decrypt(password.encode()).decode()
+from .services import Encoder, ENCODER
+from django.conf import settings
 
 
 class FTPConnection(FTP):
@@ -20,14 +9,15 @@ class FTPConnection(FTP):
     def __init__(
         self,
         host: str,
-        token: str,
         user: str,
         password: str,
         port: int = 21,
+        encoder: Encoder = ENCODER,
     ):
         super().__init__()
-        self.encoder = self.encoder(token)
-        self.__password = password
+        self.encoder = encoder
+        # TODO: pasword should be encrypted, when it is saved in the database
+        self.__password = self.encoder.decrypt(password)
         self.__host = host
         self.__user = user
         self.__port = port

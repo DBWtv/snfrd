@@ -5,7 +5,7 @@ from .services import ENCODER
 
 class FTPServer(models.Model):
     host = models.CharField(max_length=255)
-    port = models.IntegerField()
+    port = models.IntegerField(default=21, blank=True)
     user = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
 

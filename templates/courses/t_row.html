@@ -1,0 +1,12 @@
+{% load course_table %}
+
+<tr>
+    {% get_table_body %}
+    {% if is_admin %}
+    <td>
+        <button class="btn" type="button" id="addRow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><path fill="#888888" d="M13 11h-2V3H9v8H7l3 3l3-3zm4.4 4H2.6c-.552 0-.6.447-.6 1c0 .553.048 1 .6 1h14.8c.552 0 .6-.447.6-1c0-.553-.048-1-.6-1z"/></svg>
+        </button>
+    </td>
+    {% endif %}
+</tr>

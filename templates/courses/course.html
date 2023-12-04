@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load course_table %}
+{% block title %}
+<title>{{course.title}}</title>
+{% endblock title %}
+
+{% block body %}
+<div class="row">
+    <div class="col-lg-2 sidebar">
+    </div>
+    <div class="col-lg-8">
+        {% get_course_title %}
+        {% get_course_about %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="cal">
+                    <div class="table-responsive ">
+                        <a name="calendar">
+                            <table id="schedule" class="table table-curved">
+                                <thead>
+                                    {% include 'courses/t_head.html' %}
+                                </thead>
+                                <tbody>
+                                    {% include 'courses/t_row.html' %}
+                                </tbody>
+                            </table>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer-component>
+            <div class="row"
+                style="position:absolute; bottom: 0px; width: 100%; text-align: center;">
+                <div class="col-lg-12">
+                    <footer>
+                        <small>© 2023. Created by Bryazgin Dmitry</small>
+                    </footer>
+                </div>
+            </div>
+        </footer-component>
+    </div>
+</div>
+    
+
+{% endblock body %}
+
+{% comment %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="content-bottom">
+            <h2 style="font-size:1.25em; font-weight:700;">About CS106L</h2>
+
+            <p class="description">🌽 <b>CS 106L</b> is a companion class to CS106B/CS106X that explores the
+                modern C++ language in depth. We'll cover some of the most exciting features of C++,
+                including modern patterns that give it beauty and power.</p>
+
+            <p class="description">🥦 Anyone who is taking or has taken CS 106B/X (or equivalent) is welcome
+                to enroll. In other words, we welcome anyone that has learned or is learning programming
+                fundamentals like functions and objects/classes.</p>
+
+            <p class="description" style="margin:0;">🥕 CS 106L is a class for <b>1 unit</b>. Students will
+                complete 2 <b><i>very short</i></b> assignments. There are <b><i>no exams or papers</i></b>.
+                All grades are S/NC. Class will finish in week 9 to give you time for finals.</p>
+            <p>
+            </p>
+            <p class="description" style="margin:0;">🏢 CS 106L is built for you! Even if you're not taking
+                the class,
+                you're welcome to come to our in-person office hours. Fabio: Thursday 6-7pm in Turing
+                Auditorium, Haven: Tuesday 3:30-4:30pm in Turing Auditorium.
+                <!-- If these times don't work for you, we'll also have <b>virtual</b> office hours, times by appointment! -->
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="content-bottom bg-alt">
+            <h3 style="font-size:1.25em; font-weight:700;">Course Information</h3>
+            <p class="description" style="margin-bottom:.45em">👽 Haven Whitney</p>
+            <p class="description" style="margin-bottom:.45em">🏫 Fabio Ibanez</p>
+            <p class="description" style="margin-bottom:.45em"> 📫 cs106l-aut2324-staff@lists.stanford.edu
+            </p>
+            <p class="description" style="margin-bottom:.45em">🕰️ Tuesday, Thursday; 4:30 - 5:50pm; Turing
+                Auditorium</p>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="wt-sky-root"></div> {% endcomment %}

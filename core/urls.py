@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('ftp_conn.urls', 'ftp_conn'), namespace='ftp_conn')),
+    path('class/', include(('courses.urls', 'courses'), namespace='courses')),
 ]

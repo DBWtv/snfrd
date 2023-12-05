@@ -12,41 +12,44 @@
     </tr>
 </thead>
 <tbody>
-    <tr>
-        {% for week in weeks %}
-            <tr>
-                <td>
-                    {{ week.week_number }}
-                </td>
-                {% for day in days %}
-                    {% get_lecture week day as lecture %}
-                    {% if lecture %}
-                        <td>
-                            <div style="position:relative">
-                                <div class="inOut">
-                                    {{ lecture.date }}
-                                    <br>
-                                    {{ lecture.title }}
-                                </div>
-                                <div class="classLinks">
-                                    <!-- slides -->
-                                    <!-- If there are slides, show them -->
-                                    <a href="lectures/CS106L Welcome - F23.pdf">
-                                         📖 Slides
-                                    </a>
-                                    <br>
-                                        <a href="policies.html">
-                                             📃 Policies
-                                        </a>
-                                    <br>
-                                </div>             
+    {% for week in weeks %}
+        <tr>
+            <td>
+                {{ week.week_number }}
+            </td>
+            {% for day in days %}
+                {% get_lecture week day as lecture %}
+                {% if lecture %}
+                    <td>
+                        <div style="position:relative">
+                            <div class="inOut">
+                                {{ lecture.date }}
+                                <br>
+                                {{ lecture.title }}
                             </div>
-                        </td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        {% endfor %}
+                            <div class="classLinks">
+                                <!-- slides -->
+                                <!-- If there are slides, show them -->
+                                <a href="lectures/CS106L Welcome - F23.pdf">
+                                     📖 Slides
+                                </a>
+                                <br>
+                                    <a href="policies.html">
+                                         📃 Policies
+                                    </a>
+                                <br>
+                            </div>             
+                        </div>
+                    </td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    <tr>
+        <td>
+            <button class="btn" id="addRow">Add Row</button>
+        </td>
     </tr>
 </tbody>

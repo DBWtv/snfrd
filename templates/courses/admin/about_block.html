@@ -1,0 +1,38 @@
+{% load course %}
+
+{% get_course_about as about_lines %}
+{% get_course_info as info_lines %}
+{% get_course_title as title %}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="content-top">
+            <h1 style="font-size:3.25em; font-weight:700; margin:0 0;">{{title.0}}</h1>
+            {% for line in title %}
+                {% if forloop.first %}
+                {% else %}
+                    <h3>{{ line }}</h3>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="content-bottom">
+            <h2 style="font-size:1.25em; font-weight:700;">About {{title.0}}</h2>
+            {% for line in about_lines %}
+                <p>{{ line }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="content-bottom bg-alt">
+            <h3 style="font-size:1.25em; font-weight:700;">Course Information</h3>
+            {% for line in info_lines %}
+                <p>{{ line }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -8,4 +8,8 @@ def index(request, id: str):
         course = Course.objects.get(id=id)
     except Course.DoesNotExist:
         raise Http404('Course does not exist')
-    return render(request, 'courses/course.html', {'course': course, 'is_admin': request.user.is_superuser})
+
+    if request.user.is_superuser:
+        return render(request, 'courses/admin/course.html', {'course': course})
+
+    return render(request, 'courses/course.html', {'course': course})

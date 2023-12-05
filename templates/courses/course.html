@@ -1,28 +1,29 @@
 {% extends "base.html" %}
-{% load course_table %}
+{% load course %}
+{% load table %}
+
 {% block title %}
 <title>{{course.title}}</title>
 {% endblock title %}
 
 {% block body %}
+
 <div class="row">
     <div class="col-lg-2 sidebar">
     </div>
     <div class="col-lg-8">
-        {% get_course_title %}
-        {% get_course_about %}
+        {% block about %}
+            {% include 'courses/about_block.html' %}
+        {% endblock about %}
         <div class="row">
             <div class="col-lg-12">
                 <div class="cal">
                     <div class="table-responsive ">
                         <a name="calendar">
                             <table id="schedule" class="table table-curved">
-                                <thead>
-                                    {% include 'courses/t_head.html' %}
-                                </thead>
-                                <tbody>
-                                    {% include 'courses/t_row.html' %}
-                                </tbody>
+                                {% block table %}
+                                    {% include 'courses/table.html' %}
+                                {% endblock table %}
                             </table>
                         </a>
                     </div>

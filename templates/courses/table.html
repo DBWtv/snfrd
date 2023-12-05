@@ -1,0 +1,52 @@
+{% load table %}
+
+{% get_head_days as days %}
+{% get_weeks as weeks %}
+
+<thead>
+    <tr>
+        <th>Week</th>
+        {% for day in days %}
+            <th>{{ day }}</th>
+        {% endfor %}
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        {% for week in weeks %}
+            <tr>
+                <td>
+                    {{ week.week_number }}
+                </td>
+                {% for day in days %}
+                    {% get_lecture week day as lecture %}
+                    {% if lecture %}
+                        <td>
+                            <div style="position:relative">
+                                <div class="inOut">
+                                    {{ lecture.date }}
+                                    <br>
+                                    {{ lecture.title }}
+                                </div>
+                                <div class="classLinks">
+                                    <!-- slides -->
+                                    <!-- If there are slides, show them -->
+                                    <a href="lectures/CS106L Welcome - F23.pdf">
+                                         📖 Slides
+                                    </a>
+                                    <br>
+                                        <a href="policies.html">
+                                             📃 Policies
+                                        </a>
+                                    <br>
+                                </div>             
+                            </div>
+                        </td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tr>
+</tbody>

@@ -1,4 +1,5 @@
 {% load table %}
+{% load static %}
 
 {% get_head_days as days %}
 {% get_weeks as weeks %}
@@ -52,5 +53,5 @@
         {% endblock add_row_btn %}
     </tr>
 </tbody>
-{% load static %}
-<script src="{% static "js/add_row.js" %}"></script>
+{% block table_scripts %}
+{% endblock table_scripts %}

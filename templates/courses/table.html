@@ -5,48 +5,52 @@
 
 <thead>
     <tr>
-        <th>Week</th>
+        <th style="col-lg-2">Week</th>
         {% for day in days %}
-            <th>{{ day }}</th>
+        <th style="col-lg-5">{{ day }}</th>
         {% endfor %}
+        {% block add_coll_btn %}
+        {% endblock add_coll_btn %}
     </tr>
 </thead>
 <tbody>
+    {% for week in weeks %}
     <tr>
-        {% for week in weeks %}
-            <tr>
-                <td>
-                    {{ week.week_number }}
-                </td>
-                {% for day in days %}
-                    {% get_lecture week day as lecture %}
-                    {% if lecture %}
-                        <td>
-                            <div style="position:relative">
-                                <div class="inOut">
-                                    {{ lecture.date }}
-                                    <br>
-                                    {{ lecture.title }}
-                                </div>
-                                <div class="classLinks">
-                                    <!-- slides -->
-                                    <!-- If there are slides, show them -->
-                                    <a href="lectures/CS106L Welcome - F23.pdf">
-                                         📖 Slides
-                                    </a>
-                                    <br>
-                                        <a href="policies.html">
-                                             📃 Policies
-                                        </a>
-                                    <br>
-                                </div>             
-                            </div>
-                        </td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
+        <td class="calendarWeekCell">
+            {{ week.week_number }}
+        </td>
+        {% for day in days %}
+        {% get_lecture week day as lecture %}
+        {% if lecture %}
+        <td class="calendarCell">
+            <div style="position:relative">
+                <div class="inOut">
+                    {{ lecture.date }}
+                    <br>
+                    {{ lecture.title }}
+                </div>
+                <div class="classLinks">
+                    {% for file in lecture.attacments.all %}
+                    <a href="{{ file.file.url }}" target="_blank">{{ file.name }}</a>
+                    <br>
+                    {% endfor %}
+                    <br>
+                </div>
+            </div>
+        </td>
+        {% else %}
+        <td id="emptyCell">
+            {% block add_cell_btn %}
+            {% endblock add_cell_btn %}
+        </td>
+        {% endif %}
         {% endfor %}
     </tr>
+    {% endfor %}
+    <tr id="lastRow">
+        {% block add_row_btn %}
+        {% endblock add_row_btn %}
+    </tr>
 </tbody>
+{% load static %}
+<script src="{% static "js/add_row.js" %}"></script>

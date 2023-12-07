@@ -1,55 +1,25 @@
-{% load table %}
+{% extends "courses/table.html" %}
 
-{% get_head_days as days %}
-{% get_weeks as weeks %}
+{% block add_coll_btn %}
+    <th>
+        <button class="btn" id="addCol">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><path fill="#888888" d="M11 7v2H3v2h8v2l3-3l-3-3zm4-4.4v14.8c0 .551.448.6 1 .6c.553 0 1-.049 1-.6V2.6c0-.553-.447-.6-1-.6c-.552 0-1 .047-1 .6z"/></svg>
+        </button>
+    </th>
+{% endblock add_coll_btn %}
 
-<thead>
-    <tr>
-        <th>Week</th>
-        {% for day in days %}
-            <th>{{ day }}</th>
-        {% endfor %}
-    </tr>
-</thead>
-<tbody>
-    {% for week in weeks %}
-        <tr>
-            <td>
-                {{ week.week_number }}
-            </td>
-            {% for day in days %}
-                {% get_lecture week day as lecture %}
-                {% if lecture %}
-                    <td>
-                        <div style="position:relative">
-                            <div class="inOut">
-                                {{ lecture.date }}
-                                <br>
-                                {{ lecture.title }}
-                            </div>
-                            <div class="classLinks">
-                                <!-- slides -->
-                                <!-- If there are slides, show them -->
-                                <a href="lectures/CS106L Welcome - F23.pdf">
-                                     📖 Slides
-                                </a>
-                                <br>
-                                    <a href="policies.html">
-                                         📃 Policies
-                                    </a>
-                                <br>
-                            </div>             
-                        </div>
-                    </td>
-                {% else %}
-                    <td></td>
-                {% endif %}
-            {% endfor %}
-        </tr>
-    {% endfor %}
-    <tr>
-        <td>
-            <button class="btn" id="addRow">Add Row</button>
-        </td>
-    </tr>
-</tbody>
+
+{% block add_row_btn %}
+    <td>
+        <button class="btn" id="addRow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><path fill="#888888" d="M13 11h-2V3H9v8H7l3 3l3-3zm4.4 4H2.6c-.552 0-.6.447-.6 1c0 .553.048 1 .6 1h14.8c.552 0 .6-.447.6-1c0-.553-.048-1-.6-1z"/></svg>
+        </button>
+    </td>
+{% endblock add_row_btn %}
+
+
+{% block add_cell_btn %}
+    <button class="btn" id="addCell">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20"><path fill="#888888" d="M10 1.6a8.4 8.4 0 1 0 0 16.8a8.4 8.4 0 0 0 0-16.8zm5 9.4h-4v4H9v-4H5V9h4V5h2v4h4v2z"/></svg>
+    </button>
+{% endblock add_cell_btn %}

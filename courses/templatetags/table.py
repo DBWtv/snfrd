@@ -16,9 +16,8 @@ def get_weeks(context):
     return course.weeks.all()
 
 
-@register.simple_tag(takes_context=True)
-def get_lecture(context, week, day='Tuesday'):
-    course = context['course']
+@register.simple_tag
+def get_lecture(week, day):
     try:
         lecture = Lecture.objects.get(weeks=week, day=day)
     except Lecture.DoesNotExist:

@@ -21,6 +21,31 @@
         <title>Document</title>
         {% endblock title %}
         <style>
+
+            #calendar {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 5px;
+              }
+              
+              .day {
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid #ccc;
+                cursor: pointer;
+              }
+              
+              .available {
+                background-color: lightgreen;
+              }
+              
+              .selected {
+                background-color: lightblue;
+              }
+
             table {
                 border-collapse: collapse;
                 width: 100%;

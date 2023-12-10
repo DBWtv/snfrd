@@ -29,9 +29,9 @@ function addRow(weekCell, numCols, table) {
         </button>`
 
     // Добавляем ячейки с данными
-    for (var i = 1; i < numCols; i++) {
-        if (i != 1) {
-            newRow.append('<td id="emptyCell">' + cellHTML + '</td>');
+    for (var i = 0; i < numCols.length - 1; i++) {
+        if (i != 0) {
+            newRow.append('<td class="emptyCell" id="' + weekCell + ':' + numCols[i].innerHTML +'" >' + cellHTML + '</td>');
         } else {
             newRow.append('<td class="calendarWeekCell">' + weekCell + '</td>');
         }

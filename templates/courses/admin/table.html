@@ -41,7 +41,7 @@
 
             // Выбираем таблицу и определяем количество столбцов
             let table = $('#schedule tbody');
-            let numCols = $('#schedule thead th').length;
+            let numCols = $('#schedule thead th');
 
             let weekCell = $('#schedule tbody .calendarWeekCell').length + 1;
 
@@ -78,9 +78,17 @@
                 alert(e);
             }
         });
+
+        $('#schedule').on('click', '#addCell', function () {
+            let currentCell = this.parentElement;
+            let position = getCellPosition(currentCell);
+            currentCell.innerHTML = `<input type="date" id="myDateInput">`;
+        });
+
     });
 
 </script>
 <script src="{% static "js/add_row.js" %}"></script>
 <script src="{% static "js/add_column.js" %}"></script>
+<script src="{% static "js/add_lecture.js" %}"></script>
 {% endblock table_scripts %}

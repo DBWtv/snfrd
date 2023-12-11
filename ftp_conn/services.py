@@ -14,4 +14,4 @@ class Encoder(Fernet):
         return super().decrypt(password.encode()).decode()
 
 
-ENCODER = Encoder(settings.FTP_PASS_HASH_KEY)
+# ENCODER = Encoder(settings.FTP_PASS_HASH_KEY)

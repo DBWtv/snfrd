@@ -5,8 +5,11 @@ from .services import (
     create_weeks,
     get_course_days,
     add_work_day,
+    body_to_dict,
 )
+from .new_lecture_services import lecture_form_validate, append_lecture
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 
 @require_POST
@@ -40,4 +43,19 @@ def update_table(request):
         'course': course,
     }
     add_work_day(course, request.POST['day_id'])
+    return HttpResponse('ok', status=201)
+
+
+@csrf_exempt
+@body_to_dict
+@require_POST
+def add_lecture(request):
+    try:
+        lecture_form_validate(request.POST)
+        append_lecture(request.POST)
+    except Exception as e:
+        try:
+            return HttpResponse(e.message, status=400)
+        except AttributeError:
+            return HttpResponse(status=400)
     return HttpResponse('ok', status=201)

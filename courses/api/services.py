@@ -1,5 +1,6 @@
 from courses.models import Course, Week, Day
 from django.http import HttpResponse
+import json
 
 
 def get_course_weeks(course_id: int) -> tuple | HttpResponse:
@@ -63,3 +64,10 @@ def add_work_day(course: Course, day_id: int) -> None | HttpResponse:
     except Exception as e:
         print(e)
         return HttpResponse(status=400)
+
+
+def body_to_dict(func: callable):
+    def wrapper(request):
+        request.POST = json.loads(request.body)
+        return func(request)
+    return wrapper

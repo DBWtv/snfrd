@@ -81,9 +81,22 @@
 
         $('#schedule').on('click', '#addCell', function () {
             let currentCell = this.parentElement;
-            let position = getCellPosition(currentCell);
-            currentCell.innerHTML = `<input type="date" id="myDateInput">`;
+            currentCell.innerHTML = renderLectureForm(getCellPosition(currentCell));
         });
+
+        $('#schedule').on('click', '#addLecture', function(event){
+            event.preventDefault();
+            let pos = getCellPosition(this.parentElement);
+            let data = {
+                'week_id': pos.week_id,
+                'day': pos.day,
+                'date': $(`#lecture-date\\:${pos.week_id}\\:${pos.day}`).val(),
+                'title': $(`#lecture-title\\:${pos.week_id}\\:${pos.day}`).val(),
+                'course_id': '{{ course.id }}',
+                'csrfmiddlewaretoken': getCookie('csrftoken')
+            }
+            sendLectureForm(data);
+        })
 
     });
 

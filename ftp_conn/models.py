@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from django.db import models
-from .services import ENCODER
+# from .services import ENCODER
 
 
 class FTPServer(models.Model):
@@ -13,5 +13,5 @@ class FTPServer(models.Model):
         return self.host
 
     def save(self):
-        self.password = ENCODER.encrypt(self.password)
+        # self.password = ENCODER.encrypt(self.password)
         super().save()

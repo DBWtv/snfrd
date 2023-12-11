@@ -1,5 +1,5 @@
 from ftplib import FTP
-from .services import Encoder, ENCODER
+from .services import Encoder # ENCODER
 from django.conf import settings
 
 
@@ -12,10 +12,10 @@ class FTPConnection(FTP):
         user: str,
         password: str,
         port: int = 21,
-        encoder: Encoder = ENCODER,
+        # encoder: Encoder = ENCODER,
     ):
         super().__init__()
-        self.encoder = encoder
+        # self.encoder = encoder
         # TODO: pasword should be encrypted, when it is saved in the database
         self.__password = self.encoder.decrypt(password)
         self.__host = host

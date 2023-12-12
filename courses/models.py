@@ -56,6 +56,9 @@ class Lecture(models.Model):
             self.day = Day.objects.get(name=self.date.strftime('%A'))
         super().save(*args, **kwargs)
 
+    @property
+    def str_date(self):
+        return self.date.strftime('%d. %m. %Y')
 
 class Week(models.Model):
     lectur = models.ManyToManyField(Lecture, related_name='weeks')

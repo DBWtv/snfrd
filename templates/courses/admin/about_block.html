@@ -1,38 +1,64 @@
-{% load course %}
-
-{% get_course_about as about_lines %}
-{% get_course_info as info_lines %}
-{% get_course_title as title %}
+{% extends "courses/about_block.html" %}
+{% load static %}
 
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="content-top">
-            <h1 style="font-size:3.25em; font-weight:700; margin:0 0;">{{title.0}}</h1>
-            {% for line in title %}
-                {% if forloop.first %}
-                {% else %}
-                    <h3>{{ line }}</h3>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-8">
-        <div class="content-bottom">
-            <h2 style="font-size:1.25em; font-weight:700;">About {{title.0}}</h2>
-            {% for line in about_lines %}
-                <p>{{ line }}</p>
-            {% endfor %}
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="content-bottom bg-alt">
-            <h3 style="font-size:1.25em; font-weight:700;">Course Information</h3>
-            {% for line in info_lines %}
-                <p>{{ line }}</p>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+
+            $('#courseTitle').on('click', function () {
+                $('#courseTitle').hide();
+                $('#titleChangeForm').show();
+            });
+
+            $('#courseAbout').on('click', function () {
+                $('#courseAbout').hide();
+                $('#courseAboutFrom').show();
+            });
+
+            $('#courseInfo').on('click', function () {
+                $('#courseInfo').hide();
+                $('#courseInfoForm').show();
+            });
+
+            $('#titleChangeForm').on('submit', function (event) {
+                event.preventDefault();
+                text = $('#courseTitleInput').val();
+                newText = change_title_request(
+                    course_id = '{{ course.id }}',
+                    field='title', 
+                    text=text);
+                $('#courseTitle').text(newText);
+                $('#titleChangeForm').hide();
+                $('#courseTitle').show();
+            });
+
+            $('#courseAboutFrom').on('submit', function (event) {
+                event.preventDefault();
+                text = $('#courseAboutInput').val();
+                newText = change_title_request(
+                    course_id = '{{ course.id }}',
+                    field='description', 
+                    text=text);
+                $('#courseAbout').text(newText);
+                $('#courseAboutFrom').hide();
+                $('#courseAbout').show();
+            });
+
+            $('#courseInfoForm').on('submit', function (event) {
+                event.preventDefault();
+                text = $('#courseInfoInput').val();
+                newText = change_title_request(
+                    course_id = '{{ course.id }}',
+                    field='info', 
+                    text=text);
+                $('#courseInfo').text(newText);
+                $('#courseInfoForm').hide();
+                $('#courseInfo').show();
+            });
+
+        });
+    </script>
+    <script src="{% static 'js/change_about.js' %}"></script>
+{% endblock scripts %}
+

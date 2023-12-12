@@ -6,6 +6,9 @@ from .services import (
     get_course_days,
     add_work_day,
     body_to_dict,
+    validate_about,
+    InvalidData,
+    add_r_to_end,
 )
 from .new_lecture_services import lecture_form_validate, append_lecture
 from django.shortcuts import render
@@ -59,3 +62,21 @@ def add_lecture(request):
         except AttributeError:
             return HttpResponse(status=400)
     return HttpResponse('ok', status=201)
+
+
+@csrf_exempt
+@body_to_dict
+@require_POST
+def change_title(request):
+    try:
+        if validate_about(request.POST):
+            course = get_course_weeks(request.POST['course_id'])[0]
+            setattr(
+                course,
+                request.POST['field'],
+                add_r_to_end(request.POST['text'])
+            )
+            course.save()
+    except InvalidData as e:
+        return JsonResponse(e.message, status=400, safe=False)
+    return HttpResponse(content=getattr(course, request.POST['field']), status=201)

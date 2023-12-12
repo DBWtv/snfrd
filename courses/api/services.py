@@ -3,6 +3,11 @@ from django.http import HttpResponse
 import json
 
 
+class InvalidData(Exception):
+    def __init__(self, message: list[dict]):
+        self.message = message
+
+
 def get_course_weeks(course_id: int) -> tuple | HttpResponse:
     '''
     Get course and weeks in course
@@ -71,3 +76,42 @@ def body_to_dict(func: callable):
         request.POST = json.loads(request.body)
         return func(request)
     return wrapper
+
+
+def validate_about(data: dict) -> bool:
+    '''
+    Validate about form
+    '''
+    anable_fields = ['title', 'description', 'info']
+
+    errors = []
+
+    field = data.get('field', None)
+    text = data.get('text', None)
+    course_id = data.get('course_id', None)
+
+    if field == '' or None:
+        errors.append({'field': 'field is empty'})
+    if text == '' or None:
+        errors.append({'text': 'text is empty'})
+    if course_id == '' or None:
+        errors.append({'course_id': 'course_id is empty'})
+
+    if field not in anable_fields:
+        errors.append({'field': 'should be title, description or info'})
+
+    if len(errors) > 0:
+        raise InvalidData(errors)
+
+    return True
+
+
+def add_r_to_end(text):
+    '''
+    Add \r before \n of each line
+    '''
+    for char in text:
+        if char == '\n':
+            text = text.replace(char, '\r\n')
+    return text
+    

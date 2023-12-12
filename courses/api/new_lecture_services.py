@@ -1,4 +1,4 @@
-from courses.models import Course, Week, Day, Lecture
+from courses.models import Week, Day, Lecture
 from datetime import datetime
 
 
@@ -30,7 +30,7 @@ def get_week(course_id: int, week_id: int) -> Week | None:
     try:
         week = Week.objects.get(week_number=week_id, course__id=course_id)
     except Week.DoesNotExist:
-        return None
+        raise InvalidData([{'week': 'week does not exist'}])
     return week
 
 

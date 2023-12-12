@@ -33,6 +33,10 @@
 </button>
 {% endblock add_cell_btn %}
 
+{% block edit_lecture %}
+<button class="btn btn-primary btn-sm" id="editLect" style="position:absolute; bottom:0; right:0; margin:5px;">Edit</button>
+{% endblock edit_lecture %}
+
 {% block table_scripts %}
 <script>
     $(document).ready(function () {
@@ -98,10 +102,27 @@
             sendLectureForm(data);
         })
 
+        $('#schedule').on('click', '#editLect', function(){
+            let currentCell = this.parentElement.parentElement;
+            $('#hidden_cells').append($(currentCell).clone());
+            let pos = getCellPosition(currentCell);
+            let date = $(`#${pos.week_id}\\:${pos.day} #date`).text();
+            let title = $(`#${pos.week_id}\\:${pos.day} #title`).text();
+            currentCell.innerHTML = renderEditLectureForm(pos, date, title);
+        })
+
+        $(document).on('click', '#cancelEditLectureBtn', function() {
+            let currentCell = this.parentElement;
+            let pos = getCellPosition(currentCell);
+            currentCell.innerHTML = $(`#hidden_cells #${pos.week_id}\\:${pos.day}`).html();
+            $(`#hidden_cells #${pos.week_id}\\:${pos.day}`).remove();
+        });
+
     });
 
 </script>
 <script src="{% static "js/add_row.js" %}"></script>
 <script src="{% static "js/add_column.js" %}"></script>
 <script src="{% static "js/add_lecture.js" %}"></script>
+<script src="{% static "js/edit_lecture.js" %}"></script>
 {% endblock table_scripts %}

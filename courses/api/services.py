@@ -110,8 +110,4 @@ def add_r_to_end(text):
     '''
     Add \r before \n of each line
     '''
-    for char in text:
-        if char == '\n':
-            text = text.replace(char, '\r\n')
-    return text
-    
+    return text.replace('\n', '\r\n')

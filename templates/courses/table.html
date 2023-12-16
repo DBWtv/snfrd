@@ -1,6 +1,8 @@
 {% load table %}
 {% load static %}
 
+{% url 'courses:course' course.id as n_url %}
+
 {% get_head_days as days %}
 {% get_weeks as weeks %}
 
@@ -12,6 +14,17 @@
         {% endfor %}
         {% block add_coll_btn %}
         {% endblock add_coll_btn %}
+        {% block edit_button %}
+            {% if request.user.is_authenticated and request.user.is_staff %}
+                {% if request.path == n_url %}
+                    <th>
+                        <div>
+                            <a href="{% url 'courses:course_admin' course.id %}" class="btn btn-primary" style="position: absolute; top: 10px; right: 10px;">Edit</a>
+                        </div>
+                    </th>
+                {% endif %}
+            {% endif %}
+        {% endblock edit_button %}
     </tr>
 </thead>
 <tbody>

@@ -12,6 +12,19 @@
 </th>
 {% endblock add_coll_btn %}
 
+{% block delet_file %}
+    <div class="col-lg-4">
+        <button class="btn btn-danger btn-sm" id="delete_file" style="position: absolute; top: 0; right: 0;">X</button>
+    </div>
+{% endblock delet_file %}
+
+
+{% block add_file %}
+    <div class="col-lg-1">
+        <button class="btn btn-primary btn-sm" id="add_file" style="position: absolute; top: 0; right: 0;">+</button>
+    </div>
+{% endblock add_file %}
+
 
 {% block add_row_btn %}
 <td>
@@ -116,6 +129,16 @@
             let pos = getCellPosition(currentCell);
             currentCell.innerHTML = $(`#hidden_cells #${pos.week_id}\\:${pos.day}`).html();
             $(`#hidden_cells #${pos.week_id}\\:${pos.day}`).remove();
+        });
+
+        $(".classLinks").on("click", "#add_file", function () {
+            console.log(this.parentElement.parentElement.parentElement.parentElement);
+            console.log("btn pressed");
+        });
+
+        $(".classLinks").on("click", "#delete_file", function () {
+            console.log(this.parentElement.parentElement.parentElement.parentElement.parentElement);
+            console.log("btn pressed");
         });
 
     });

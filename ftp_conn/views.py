@@ -3,43 +3,33 @@ from django.http import HttpResponse
 from .connection import FTPConnection
 from .models import FTPServer
 
+from storages.backends.ftp import FTPStorage
 
-def index(request):
-    if not request.user.is_superuser:
-        return HttpResponse('You are not authorized to access this page.')
-    servers = FTPServer.objects.all()
-    html = '''
-        <html>
-        <head>
-        <style>
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
-        }
 
-        td, th {
-          border: 1px solid #dddddd;
-          text-align: left;
-          padding: 8px;
-        }
+def index(request, path):
+    ftp = FTPStorage()
+    file = ftp._open(name=path, mode='rb')
+    return HttpResponse(file.read(), content_type=cont_type(path))
 
-        tr:nth-child(even) {
-          background-color: #dddddd;
-        }
-        </style>
-        </head>
-        <body>
-    '''
-    html += '''
-    <table>
-        <tr>
-            <th>Host</th>
-            <th>Port</th>
-        </tr>
-    '''
-    for server in servers:
-        html += f'<tr><td>{server.host}</td><td>{server.port}</td></tr>'
-    html += '</table>'
-    response = html + '</body></html>'
-    return HttpResponse(response)
+
+def cont_type(path):
+    extension = path.split('.')[-1]
+
+    content_types = {
+        'pdf': 'application/pdf',
+        'txt': 'text/plain',
+        'jpg': 'image/jpeg',
+        'png': 'image/png',
+        'gif': 'image/gif',
+        'svg': 'image/svg+xml',
+        'webp': 'image/webp',
+        'doc': 'application/msword',
+        'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'xls': 'application/vnd.ms-excel',
+        'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'ppt': 'application/vnd.ms-powerpoint',
+        'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        # Добавьте другие расширения и их Content-Type по необходимости
+    }
+
+    return content_types.get(extension, 'application/octet-stream')

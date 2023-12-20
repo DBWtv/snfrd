@@ -45,13 +45,23 @@
                 </div>
                 <div class="classLinks">
                     {% for file in lecture.attacments.all %}
-                    <a href="{{ file.file.url }}" target="_blank">{{ file.name }}</a>
+                    <div class="row" id="{{lecture.id}}_{{file.id}}">
+                        <div class="col-lg-2">
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.name }}</a>
+                        </div>
+                        {% block delet_file %}
+                        {% endblock delet_file %}
+                    </div>
                     <br>
                     {% endfor %}
-                    <br>
+                    {% block add_file %}
+                    {% endblock add_file %}
                 </div>
-                {% block edit_lecture %}
-                {% endblock edit_lecture %}
+                <div class="edit_lecture_btn">
+                    {% block edit_lecture %}
+                    {% endblock edit_lecture %}
+                </div>
+                <br>
             </div>
         </td>
         {% else %}

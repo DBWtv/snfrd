@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'ftp_conn',
     'courses',
 ]
@@ -129,8 +130,8 @@ STATICFILES_DIRS = [
     "/var/www/static/",
 ]
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = 'media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -144,3 +145,16 @@ FTP_PORT = int(os.getenv('ftp_port', 21))
 FTP_USER = os.getenv('ftp_user')
 FTP_PASSWORD = os.getenv('ftp_pass')
 FTP_PASS_HASH_KEY = os.getenv('ftp_pass_hash_key')
+
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.ftp.FTPStorage"
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+# FTP_STORAGE_LOCATION = 'path/to/ftp/folder'
+FTP_STORAGE_LOCATION = f'ftp://{os.getenv("ftp_user")}:{os.getenv("ftp_pass")}@{os.getenv("ftp_host")}:{os.getenv("ftp_port")}'
+BASE_URL = '/ftp_files/'

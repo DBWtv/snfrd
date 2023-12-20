@@ -1,6 +1,6 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
-    # path('', views.index, name='index'),
+    re_path(r'^ftp_files/(?P<path>.*)$', views.index, name='ftp'),
 ]

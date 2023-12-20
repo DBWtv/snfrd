@@ -4,10 +4,12 @@ from django.db import models
 
 
 class Attachment(models.Model):
-    name = models.CharField(max_length=255)
-    file = models.FileField(upload_to='courses/%Y/%m/%d/')
+    name = models.CharField(max_length=255, blank=True, null=True)
+    file = models.FileField(upload_to='%Y/%m/%d/')
 
     def __str__(self):
+        if self.name is None:
+            return self.file.name
         return self.name
 
     def delete(self, *args, **kwargs):
@@ -79,8 +81,8 @@ class Course(models.Model):
     title = models.TextField(max_length=255, unique=True)
     description = models.TextField()
     info = models.TextField()
-    days = models.ManyToManyField(Day, related_name='course')
-    weeks = models.ManyToManyField(Week, related_name='course')
+    days = models.ManyToManyField(Day, related_name='course', blank=True)
+    weeks = models.ManyToManyField(Week, related_name='course', blank=True)
 
     def __str__(self):
         return self.title

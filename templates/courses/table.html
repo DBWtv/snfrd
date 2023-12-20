@@ -18,7 +18,7 @@
             {% if request.user.is_authenticated and request.user.is_staff %}
                 {% if request.path == n_url %}
                     <th>
-                        <div>
+                        <div class="ml-1">
                             <a href="{% url 'courses:course_admin' course.id %}" class="btn btn-primary" style="position: absolute; top: 10px; right: 10px;">Edit</a>
                         </div>
                     </th>
@@ -45,15 +45,15 @@
                 </div>
                 <div class="classLinks">
                     {% for file in lecture.attacments.all %}
-                    <div class="row" id="{{lecture.id}}_{{file.id}}">
-                        <div class="col-lg-2">
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.name }}</a>
+                    <div class="row mb-2">
+                        <div class="col-lg-4">
+                            <a href="{{ file.file.url }}" target="_blank">{{ file }}</a>
                         </div>
                         {% block delet_file %}
                         {% endblock delet_file %}
                     </div>
-                    <br>
                     {% endfor %}
+                    <br>
                     {% block add_file %}
                     {% endblock add_file %}
                 </div>

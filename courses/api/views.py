@@ -9,6 +9,7 @@ from .services import (
     validate_about,
     InvalidData,
     add_r_to_end,
+    add_file_to_lecture
 )
 from .new_lecture_services import lecture_form_validate, append_lecture
 from django.shortcuts import render
@@ -80,3 +81,17 @@ def change_title(request):
     except InvalidData as e:
         return JsonResponse(e.message, status=400, safe=False)
     return HttpResponse(content=getattr(course, request.POST['field']), status=201)
+
+
+@csrf_exempt
+@require_POST
+def add_file(request):
+    try:
+        add_file_to_lecture(
+            lecture_id=request.POST['lecture_id'],
+            file=request.FILES['file'],
+            name=request.POST['name']
+        )
+    except Exception as e:
+        print(e)
+        return HttpResponse(status=400)

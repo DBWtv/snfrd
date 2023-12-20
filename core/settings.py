@@ -140,11 +140,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # FTP settings
-FTP_HOST = os.getenv('ftp_host')
-FTP_PORT = int(os.getenv('ftp_port', 21))
-FTP_USER = os.getenv('ftp_user')
-FTP_PASSWORD = os.getenv('ftp_pass')
-FTP_PASS_HASH_KEY = os.getenv('ftp_pass_hash_key')
+# FTP_HOST = os.getenv('ftp_host')
+# FTP_PORT = int(os.getenv('ftp_port', 21))
+# FTP_USER = os.getenv('ftp_user')
+# FTP_PASSWORD = os.getenv('ftp_pass')
+# FTP_PASS_HASH_KEY = os.getenv('ftp_pass_hash_key')
 
 
 STORAGES = {

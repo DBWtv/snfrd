@@ -1,11 +1,8 @@
 from django.http import HttpResponse
 from storages.backends.ftp import FTPStorage
-
-
-def index(request, path):
-    ftp = FTPStorage()
-    file = ftp._open(name=path, mode='rb')
-    return HttpResponse(file.read(), content_type=cont_type(path))
+from courses.models import Attachment
+from django.views.decorators.http import require_POST, require_GET
+from django.views.decorators.csrf import csrf_exempt
 
 
 def cont_type(path):
@@ -43,3 +40,17 @@ def cont_type(path):
     }
 
     return content_types.get(extension, 'application/octet-stream')
+
+
+@require_GET
+def get_file(request, path):
+    with FTPStorage()._open(name=path, mode='rb') as file:
+        return HttpResponse(file.read(), content_type=cont_type(path))
+
+
+@csrf_exempt
+@require_POST
+def delete_file(request, path):
+    file = Attachment.objects.get(file=path)
+    file.delete()
+    return HttpResponse(status=204)

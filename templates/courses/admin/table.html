@@ -2,52 +2,54 @@
 {% load static %}
 
 {% block add_coll_btn %}
-<th>
-    <button class="btn" id="addCol">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
-            <path fill="#888888"
-                d="M11 7v2H3v2h8v2l3-3l-3-3zm4-4.4v14.8c0 .551.448.6 1 .6c.553 0 1-.049 1-.6V2.6c0-.553-.447-.6-1-.6c-.552 0-1 .047-1 .6z" />
-        </svg>
-    </button>
-</th>
+    <th>
+        <button class="btn" id="addCol">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
+                <path fill="#888888"
+                    d="M11 7v2H3v2h8v2l3-3l-3-3zm4-4.4v14.8c0 .551.448.6 1 .6c.553 0 1-.049 1-.6V2.6c0-.553-.447-.6-1-.6c-.552 0-1 .047-1 .6z" />
+            </svg>
+        </button>
+    </th>
 {% endblock add_coll_btn %}
 
 {% block delet_file %}
-    <div class="col-lg-4">
+    <div class="col-lg">
         <button class="btn btn-danger btn-sm" id="delete_file" style="position: absolute; top: 0; right: 0;">X</button>
     </div>
+    <div class="col-lg-1">
+    </div> 
 {% endblock delet_file %}
 
 
 {% block add_file %}
-    <div class="col-lg-1">
+    <div class="col-lg-1" id="{{lecture.id}}">
         <button class="btn btn-primary btn-sm" id="add_file" style="position: absolute; top: 0; right: 0;">+</button>
     </div>
 {% endblock add_file %}
 
 
 {% block add_row_btn %}
-<td>
-    <button class="btn" id="addRow">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
-            <path fill="#888888"
-                d="M13 11h-2V3H9v8H7l3 3l3-3zm4.4 4H2.6c-.552 0-.6.447-.6 1c0 .553.048 1 .6 1h14.8c.552 0 .6-.447.6-1c0-.553-.048-1-.6-1z" />
-        </svg>
-    </button>
-</td>
+    <td>
+        <button class="btn" id="addRow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
+                <path fill="#888888"
+                    d="M13 11h-2V3H9v8H7l3 3l3-3zm4.4 4H2.6c-.552 0-.6.447-.6 1c0 .553.048 1 .6 1h14.8c.552 0 .6-.447.6-1c0-.553-.048-1-.6-1z" />
+            </svg>
+        </button>
+    </td>
 {% endblock add_row_btn %}
 
 
 {% block add_cell_btn %}
-<button class="btn" id="addCell">
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
-        <path fill="#888888" d="M10 1.6a8.4 8.4 0 1 0 0 16.8a8.4 8.4 0 0 0 0-16.8zm5 9.4h-4v4H9v-4H5V9h4V5h2v4h4v2z" />
-    </svg>
-</button>
+    <button class="btn" id="addCell">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 20 20">
+            <path fill="#888888" d="M10 1.6a8.4 8.4 0 1 0 0 16.8a8.4 8.4 0 0 0 0-16.8zm5 9.4h-4v4H9v-4H5V9h4V5h2v4h4v2z" />
+        </svg>
+    </button>
 {% endblock add_cell_btn %}
 
 {% block edit_lecture %}
-<button class="btn btn-primary btn-sm" id="editLect" style="position:absolute; bottom:0; right:0; margin:5px;">Edit</button>
+    <button class="btn btn-primary btn-sm" id="editLect" style="position:absolute; bottom:0; right:0; margin:5px;">Edit</button>
 {% endblock edit_lecture %}
 
 {% block table_scripts %}
@@ -120,6 +122,7 @@
             $('#hidden_cells').append($(currentCell).clone());
             let pos = getCellPosition(currentCell);
             let date = $(`#${pos.week_id}\\:${pos.day} #date`).text();
+            console.log(date);
             let title = $(`#${pos.week_id}\\:${pos.day} #title`).text();
             currentCell.innerHTML = renderEditLectureForm(pos, date, title);
         })
@@ -132,18 +135,27 @@
         });
 
         $(".classLinks").on("click", "#add_file", function () {
-            console.log(this.parentElement.parentElement.parentElement.parentElement);
-            console.log("btn pressed");
+            file_form(this)
         });
 
         $(".classLinks").on("click", "#delete_file", function () {
-            console.log(this.parentElement.parentElement.parentElement.parentElement.parentElement);
-            console.log("btn pressed");
+            let url_path = `${this.parentElement.parentElement.children[0].children[0].href}`;
+            url_path = url_path.replace(/.*\/ftp_files\//, '/delete_file/');
+            xhr = new XMLHttpRequest();
+            xhr.open("POST", url_path, false);
+            xhr.send();
+            if (xhr.status != 204) {
+                alert(xhr.status + ': ' + xhr.statusText);
+            } else {
+                this.parentElement.parentElement.remove();
+            }
+
         });
 
     });
 
 </script>
+<script src="{% static "js/add_file_to_lec.js" %}"></script>
 <script src="{% static "js/add_row.js" %}"></script>
 <script src="{% static "js/add_column.js" %}"></script>
 <script src="{% static "js/add_lecture.js" %}"></script>

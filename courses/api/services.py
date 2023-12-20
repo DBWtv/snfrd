@@ -1,4 +1,4 @@
-from courses.models import Course, Week, Day
+from courses.models import Course, Week, Day, Attachment, Lecture
 from django.http import HttpResponse
 import json
 
@@ -111,3 +111,23 @@ def add_r_to_end(text):
     Add \r before \n of each line
     '''
     return text.replace('\n', '\r\n')
+
+
+def add_file_to_lecture(lecture_id, file, name):
+    '''
+    Add file to lecture
+    '''
+    new_attachment = Attachment.objects.create(
+        file=file, name=name)
+
+    try:
+        lecture = Lecture.objects.get(id=lecture_id)
+    except Lecture.DoesNotExist:
+        return HttpResponse(status=404)
+
+    new_attachment.save()
+    attachments_list = [attachment for attachment in lecture.attacments.all()]
+    attachments_list.append(new_attachment)
+    lecture.attacments.set(attachments_list)
+    lecture.save()
+    return HttpResponse(status=201)

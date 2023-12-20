@@ -12,7 +12,7 @@ function fileForm(lecture_id) {
     let lecture_id_input = $('<input type="hidden" name="lecture_id" id="lecture_id">');
     let name = $('<input type="text" name="name" id="name">');
     let input = $('<input type="file" name="file" id="file" required>');
-    let button = $('<button class="btn btn-primary" id="addFileSubmit">add</button>');
+    let button = $('<button class="btn btn-primary" id="addFileSubmit">Добавить</button>');
 
     input.on('change', function() {
         if (!name.val()) {

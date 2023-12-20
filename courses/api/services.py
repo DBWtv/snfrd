@@ -49,6 +49,10 @@ def get_course_days(course_id: int, not_found_status: int = 404) -> list | HttpR
         course_days_ids = course.days.values_list('id', flat=True)
         enabled_days = Day.objects.exclude(
             id__in=course_days_ids).values('id', 'name')
+
+        for day in enabled_days:
+            day['name'] = en_to_ru(day['name'])
+
     except Day.DoesNotExist:
         return HttpResponse(status=400)
 
@@ -131,3 +135,17 @@ def add_file_to_lecture(lecture_id, file, name):
     lecture.attacments.set(attachments_list)
     lecture.save()
     return HttpResponse(status=201)
+
+
+def en_to_ru(day: str) -> str:
+    translation_map = {
+        'Monday': 'Понедельник',
+        'Tuesday': 'Вторник',
+        'Wednesday': 'Среда',
+        'Thursday': 'Четверг',
+        'Friday': 'Пятница',
+        'Saturday': 'Суббота',
+        'Sunday': 'Воскресенье',
+    }
+
+    return translation_map.get(day, day)

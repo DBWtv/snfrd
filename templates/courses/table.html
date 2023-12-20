@@ -8,9 +8,9 @@
 
 <thead>
     <tr>
-        <th style="col-lg-2">Week</th>
+        <th style="col-lg-2">Неделя</th>
         {% for day in days %}
-        <th style="col-lg-5">{{ day }}</th>
+        <th style="col-lg-5">{{ day.name|translate_day }}</th>
         {% endfor %}
         {% block add_coll_btn %}
         {% endblock add_coll_btn %}
@@ -18,8 +18,8 @@
             {% if request.user.is_authenticated and request.user.is_staff %}
                 {% if request.path == n_url %}
                     <th>
-                        <div class="ml-1">
-                            <a href="{% url 'courses:course_admin' course.id %}" class="btn btn-primary" style="position: absolute; top: 10px; right: 10px;">Edit</a>
+                        <div class="m-2">
+                            <a href="{% url 'courses:course_admin' course.id %}" class="btn btn-primary">Изменить</a>
                         </div>
                     </th>
                 {% endif %}

@@ -12,7 +12,7 @@
             {% for line in title %}
                 {% if forloop.first %}
                 {% else %}
-                    <h3>{{ line }}</h3>
+                    <h3 class="caption">{{ line }}</h3>
                 {% endif %}
             {% endfor %}
         </div>
@@ -21,8 +21,8 @@
                 {% csrf_token %}
                 <textarea type="text" name="title" id="courseTitleInput" style="width: 100%;" >{% for line in title %}{{ line }}{% endfor %}</textarea>
                 <br>
-                <button type="submit">Change</button>
-                <button type="button" onclick="$('#titleChangeForm').hide(); $('#courseTitle').show();">Cancel</button>
+                <button type="submit">Изменить</button>
+                <button type="button" onclick="$('#titleChangeForm').hide(); $('#courseTitle').show();">Отмена</button>
             </form>
         </div>
     </div>
@@ -30,37 +30,37 @@
 <div class="row">
     <div class="col-lg-8">
         <div class="content-bottom" id="courseAbout">
-            <h2 style="font-size:1.25em; font-weight:700;">About {{title.0}}</h2>
+            <h2 style="font-size:1.25em; font-weight:700;">О курсе {{title.0}}</h2>
             {% for line in about_lines %}
-                <p>{{ line }}</p>
+                <p class="description">{{ line }}</p>
             {% endfor %}
         </div>
         <div class="content-bottom" id="courseAboutFrom" style="display: none;">
-            <h2 style="font-size:1.25em; font-weight:700;">About {{title.0}}</h2>
+            <h2 style="font-size:1.25em; font-weight:700;">О курсе {{title.0}}</h2>
             <form method="post">
                 {% csrf_token %}
                 <textarea type="text" name="title" id="courseAboutInput" style="width: 100%;" >{% for line in about_lines %}{{line}}{% endfor %}</textarea>
                 <br>
-                <button type="submit">Change</button>
-                <button type="button" onclick="$('#courseAboutFrom').hide(); $('#courseAbout').show();">Cancel</button>
+                <button type="submit">Изменить</button>
+                <button type="button" onclick="$('#courseAboutFrom').hide(); $('#courseAbout').show();">Отмена</button>
             </form>
         </div>
     </div>
     <div class="col-lg-4">
         <div class="content-bottom bg-alt" id="courseInfo">
-            <h3 style="font-size:1.25em; font-weight:700;">Course Information</h3>
+            <h3 style="font-size:1.25em; font-weight:700;">Информация </h3>
             {% for line in info_lines %}
-                <p>{{ line }}</p>
+                <p class="description">{{ line }}</p>
             {% endfor %}
         </div>
         <div class="content-bottom bg-alt" id="courseInfoForm" style="display: none;">
-            <h3 style="font-size:1.25em; font-weight:700;">Course Information</h3>
+            <h3 style="font-size:1.25em; font-weight:700;">Информация </h3>
             <form method="post">
                 {% csrf_token %}
                 <textarea type="text" name="title" id="courseInfoInput" style="width: 100%;" >{% for line in info_lines %}{{line}}{% endfor %}</textarea>
                 <br>
-                <button type="submit">Change</button>
-                <button type="button" onclick="$('#courseInfoForm').hide(); $('#courseInfo').show();">Cancel</button>
+                <button type="submit">Изменить</button>
+                <button type="button" onclick="$('#courseInfoForm').hide(); $('#courseInfo').show();">Отмена</button>
             </form>
         </div>
     </div>

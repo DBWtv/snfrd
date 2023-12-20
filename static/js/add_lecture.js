@@ -15,11 +15,11 @@ function sendLectureForm(data) {
 
 function renderLectureForm(position) {
     let form = $(`<form id = "lecture-form:${position.week_id}:${position.day}"></form>`);
-    form.append($(`<div class="form-group"><label for = "lecture-date:${position.week_id}:${position.day}">Date</label>`));
+    form.append($(`<div class="form-group"><label for = "lecture-date:${position.week_id}:${position.day}">Дата</label>`));
     form.append($(`<input id = "lecture-date:${position.week_id}:${position.day}" type="date" name="date class="form-control"" required></div>`));
-    form.append($(`<div class="form-group"><label for = "lecture-title:${position.week_id}:${position.day}">Title</label>`));
+    form.append($(`<div class="form-group"><label for = "lecture-title:${position.week_id}:${position.day}">Название</label>`));
     form.append($(`<input id = "lecture-title:${position.week_id}:${position.day}" type="text" name="title" class="form-control" required></div>`));
-    form.append($(`<button type="submit" id="addLecture" >Add</button>`));
+    form.append($(`<button type="submit" id="addLecture" >Добавить</button>`));
     return form.html();
 }
 

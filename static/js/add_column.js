@@ -1,5 +1,4 @@
 function getEnableDays(course_id) {
-    let id = course_id;
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/class/api/enable_days/', false);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -40,7 +39,7 @@ function newCollonForm(days) {
         option.text(days[i].name);
         select.append(option);
     }
-    let button = $('<button id="addColSubmit">add</button>');
+    let button = $('<button id="addColSubmit">Добавить</button>');
     form.append(select);
     form.append(button);
     html.append(form);

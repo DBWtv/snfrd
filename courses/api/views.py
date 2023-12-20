@@ -9,7 +9,7 @@ from .services import (
     validate_about,
     InvalidData,
     add_r_to_end,
-    add_file_to_lecture
+    add_file_to_lecture,
 )
 from .new_lecture_services import lecture_form_validate, append_lecture
 from django.shortcuts import render

@@ -1,5 +1,6 @@
 from django import template
 from ..models import Lecture
+from courses.api.services import en_to_ru
 
 register = template.Library()
 
@@ -23,3 +24,9 @@ def get_lecture(week, day):
     except Lecture.DoesNotExist:
         return None
     return lecture
+
+
+
+@register.filter(is_safe=True)
+def translate_day(day):
+    return en_to_ru(day)

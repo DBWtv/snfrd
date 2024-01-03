@@ -118,20 +118,44 @@
         })
 
         $('#schedule').on('click', '#editLect', function(){
-            let currentCell = this.parentElement.parentElement;
+            let currentCell = this.parentElement.parentElement.parentElement;
             $('#hidden_cells').append($(currentCell).clone());
             let pos = getCellPosition(currentCell);
-            let date = $(`#${pos.week_id}\\:${pos.day} #date`).text();
-            console.log(date);
-            let title = $(`#${pos.week_id}\\:${pos.day} #title`).text();
+            let date = $(`#${pos.week_id}\\:${pos.day}\\:${pos.lecture_id} #date`).text();
+            let title = $(`#${pos.week_id}\\:${pos.day}\\:${pos.lecture_id} #title`).text();
             currentCell.innerHTML = renderEditLectureForm(pos, date, title);
         })
+
+        $(document).on('click', '#submitEditLectureBtn', function(e) {
+            e.preventDefault();
+            let id = this.parentElement.id;
+            let week_id = getCellPosition(this.parentElement).week_id;
+            let day = getCellPosition(this.parentElement).day;
+            let date = `lecture-date\\:${week_id}\\:${day}`;
+            let title = `lecture-title\\:${week_id}\\:${day}`;
+
+            let data = {
+                'lecture_id': id.split(':')[2],
+                'date': $(`#${date}`).val(),
+                'title': $(`#${title}`).val(),
+            }
+
+            xhr = new XMLHttpRequest();
+            xhr.open("POST", `/class/api/edit_lecture/`, false);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify(data));
+            if (xhr.status != 201) {
+                alert(xhr.status + ': ' + xhr.statusText);
+            } else {
+                window.location.reload();
+            }
+        });
 
         $(document).on('click', '#cancelEditLectureBtn', function() {
             let currentCell = this.parentElement;
             let pos = getCellPosition(currentCell);
-            currentCell.innerHTML = $(`#hidden_cells #${pos.week_id}\\:${pos.day}`).html();
-            $(`#hidden_cells #${pos.week_id}\\:${pos.day}`).remove();
+            currentCell.innerHTML = $(`#hidden_cells #${pos.week_id}\\:${pos.day}\\:${pos.lecture_id}`).html();
+            $(`#hidden_cells #${pos.week_id}\\:${pos.day}\\:${pos.lecture_id}`).remove();
         });
 
         $(".classLinks").on("click", "#add_file", function () {

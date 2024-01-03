@@ -91,3 +91,10 @@ class Course(models.Model):
         if not self.id:
             self.id = self.title.lower().replace(' ', '-')
         super().save(*args, **kwargs)
+
+    @property
+    def url(self):
+        return f'/class/{self.id}/'
+    
+    class Meta:
+        ordering = ['pk']

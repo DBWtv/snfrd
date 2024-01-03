@@ -485,3 +485,9 @@
             .inOut {
                 position: relative;
             }
+
+            #course_raw {
+                border: 1px solid #dddddd;
+                border-radius: 10px;
+                background: linear-gradient(90deg, var(--dkGreen) 0%, var(--ltGreen) 100%);;
+            }

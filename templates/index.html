@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% include "courses/navbar.html" %}
+<div class="row">
+    <div class="col-lg-2 sidebar">
+    </div>
+    <div class="col-lg-8">
+        <div class="row">
+            <div class="col-lg-12">
+                {% for course in your_objects %}
+
+                    <div class ="row" id="course_raw">
+                        <div class="col-lg-12">
+                            <h5><a style="color: white;" href="{{course.url}}">Курс: {{course}}</a></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br>
+                    </div>
+                {% endfor %}
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5">
+                </div>
+                <div class="col-lg">
+                        {% if your_objects.has_previous %}
+                            <h5><a href="?page={{ your_objects.previous_page_number }}">«</a>
+                        {% else %}
+                            <h5><span>«</span>
+                        {% endif %}
+                    
+
+                        {% for page in page_range %}
+                            {% if page == '...' %}
+                                <span>...</span>
+                            {% elif page == your_objects.number %}
+                                <span>{{ page }}</span>
+                            {% else %}
+                                <a href="?page={{ page }}">{{ page }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if your_objects.has_next %}
+                            <a href="?page={{ your_objects.next_page_number }}">»</a></h5>
+                        {% else %}
+                            <span>»</span></h5>
+                        {% endif %}
+                </div>        
+        </div>
+{% endblock body %}

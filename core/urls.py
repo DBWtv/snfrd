@@ -19,10 +19,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from courses.views import index
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(('ftp_conn.urls', 'ftp_conn'), namespace='ftp_conn')),
+    path('', index, name='index'),
     path('class/', include(('courses.urls', 'courses'), namespace='courses')),
 ]
 

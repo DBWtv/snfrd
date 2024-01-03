@@ -8,6 +8,18 @@ class InvalidData(Exception):
         self.message = message
 
 
+def get_lecture(lecture_id: str, *args, **kwargs) -> Lecture | HttpResponse:
+    '''
+    Get lecture by week, day and course
+    '''
+    try:
+        lecture = Lecture.objects.get(id=lecture_id)
+    except Lecture.DoesNotExist:
+        return HttpResponse(status=404)
+
+    return lecture
+
+
 def get_course_weeks(course_id: int) -> tuple | HttpResponse:
     '''
     Get course and weeks in course
@@ -146,6 +158,20 @@ def en_to_ru(day: str) -> str:
         'Friday': 'Пятница',
         'Saturday': 'Суббота',
         'Sunday': 'Воскресенье',
+    }
+
+    return translation_map.get(day, day)
+
+
+def ru_to_en(day: str) -> str:
+    translation_map = {
+        'Понедельник': 'Monday',
+        'Вторник': 'Tuesday',
+        'Среда': 'Wednesday',
+        'Четверг': 'Thursday',
+        'Пятница': 'Friday',
+        'Суббота': 'Saturday',
+        'Воскресенье': 'Sunday',
     }
 
     return translation_map.get(day, day)

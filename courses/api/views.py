@@ -10,6 +10,7 @@ from .services import (
     InvalidData,
     add_r_to_end,
     add_file_to_lecture,
+    get_lecture,
 )
 from .new_lecture_services import lecture_form_validate, append_lecture
 from django.shortcuts import render
@@ -95,3 +96,14 @@ def add_file(request):
     except Exception as e:
         print(e)
         return HttpResponse(status=400)
+
+
+@csrf_exempt
+@body_to_dict
+@require_POST
+def edit_lecture(request):
+    lect = get_lecture(**request.POST)
+    lect.title = request.POST['title']
+    lect.date = request.POST['date']
+    lect.save()
+    return HttpResponse('ok', status=201)

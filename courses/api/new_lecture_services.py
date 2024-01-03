@@ -1,5 +1,6 @@
 from courses.models import Week, Day, Lecture
 from datetime import datetime
+from .services import ru_to_en
 
 
 class InvalidData(Exception):
@@ -39,7 +40,9 @@ def lecture_form_validate(data: dict) -> bool | InvalidData:
     day: datetime = datetime.strptime(
         data.get('date'), '%Y-%m-%d').strftime("%A")
     if day != data.get('day'):
-        errors.append({'day': 'day is not equal to date'})
+        data['day'] = ru_to_en(day)
+        if day != data.get('day'):
+            errors.append({'day': 'day is not equal to date'})
     if data.get('title') == '':
         errors.append({'title': 'title is empty'})
 

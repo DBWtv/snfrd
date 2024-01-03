@@ -1,5 +1,5 @@
 function renderEditLectureForm(position, date, title) {
-    let form = $(`<form id="lecture-form:${position.week_id}:${position.day}"></form>`);
+    let form = $(`<form id="lecture-form:${position.week_id}:${position.day}:${position.lecture_id}"></form>`);
     
     // Добавляем поле для ввода даты с установленным значением
     form.append($(`<div class="form-group"><label for="lecture-date:${position.week_id}:${position.day}">Дата</label>`));
@@ -11,8 +11,11 @@ function renderEditLectureForm(position, date, title) {
     
     form.append($(`<br>`))
     // Добавляем кнопки для отправки формы и отмены редактирования
-    form.append($(`<button type="submit" id="editLectureBtn">Изменить</button>`));
-    form.append($(`<button type="submit" id="cancelEditLectureBtn">Отмена</button>`));
+    s_button = $(`<button type="submit" id="submitEditLectureBtn">Сохранить</button>`);
+    c_button = $(`<button type="button" id="cancelEditLectureBtn">Отмена</button>`);
+    
+    form.append(s_button);
+    form.append(c_button);
 
     return form.html();
 }

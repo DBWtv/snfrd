@@ -36,7 +36,7 @@
         {% for day in days %}
         {% get_lecture week day as lecture %}
         {% if lecture %}
-        <td class="calendarCell" id='{{week.week_number}}:{{day}}'>
+        <td class="calendarCell" id='{{week.week_number}}:{{day}}:{{lecture.id}}'>
             <div style="position:relative">
                 <div class="inOut">
                     <div id="date">{{ lecture.str_date }}</div>

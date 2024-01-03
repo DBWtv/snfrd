@@ -26,7 +26,8 @@ function renderLectureForm(position) {
 function getCellPosition(cell) {
     position = {
         week_id: cell.id.split(':')[0],
-        day: cell.id.split(':')[1]
+        day: cell.id.split(':')[1],
+        lecture_id: cell.id.split(':')[2]
     }
     return position
 }

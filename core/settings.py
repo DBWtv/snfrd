@@ -154,6 +154,5 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
-# FTP_STORAGE_LOCATION = 'path/to/ftp/folder'
 FTP_STORAGE_LOCATION = f'ftp://{os.getenv("ftp_user")}:{os.getenv("ftp_pass")}@{os.getenv("ftp_host")}:{os.getenv("ftp_port")}'
 BASE_URL = '/ftp_files/'

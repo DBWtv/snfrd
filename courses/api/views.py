@@ -13,7 +13,6 @@ from .services import (
     get_lecture,
 )
 from .new_lecture_services import lecture_form_validate, append_lecture
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 

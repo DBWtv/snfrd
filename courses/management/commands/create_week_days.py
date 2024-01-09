@@ -3,7 +3,7 @@ from courses.models import Day, DayNames
 
 
 class Command(BaseCommand):
-    help = 'Populate MyModel with sample data'
+    help = 'Create week days'
 
     def handle(self, *args, **kwargs):
         for i, day in enumerate(DayNames.choices):

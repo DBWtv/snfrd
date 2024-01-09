@@ -1,5 +1,5 @@
 from django import template
-from ..models import Lecture
+from courses.models import Lecture
 from courses.api.services import en_to_ru
 
 register = template.Library()

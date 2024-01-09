@@ -8,7 +8,7 @@
     <div class="col-lg-8">
         <div class="row">
             <div class="col-lg-12">
-                {% for course in your_objects %}
+                {% for course in objects %}
 
                     <div class ="row" id="course_raw">
                         <div class="col-lg-12">
@@ -26,8 +26,8 @@
                 <div class="col-lg-5">
                 </div>
                 <div class="col-lg">
-                        {% if your_objects.has_previous %}
-                            <h5><a href="?page={{ your_objects.previous_page_number }}">«</a>
+                        {% if objects.has_previous %}
+                            <h5><a href="?page={{ objects.previous_page_number }}">«</a>
                         {% else %}
                             <h5><span>«</span>
                         {% endif %}
@@ -43,8 +43,8 @@
                             {% endif %}
                         {% endfor %}
 
-                        {% if your_objects.has_next %}
-                            <a href="?page={{ your_objects.next_page_number }}">»</a></h5>
+                        {% if objects.has_next %}
+                            <a href="?page={{ objects.next_page_number }}">»</a></h5>
                         {% else %}
                             <span>»</span></h5>
                         {% endif %}

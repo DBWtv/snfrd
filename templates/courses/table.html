@@ -66,6 +66,10 @@
         </td>
         {% else %}
         <td class="emptyCell" id='{{week.week_number}}:{{day}}'>
+            <div class="inOut">
+                <div id="msg">Свободный день</div>
+                <br>
+            </div>
             {% block add_cell_btn %}
             {% endblock add_cell_btn %}
         </td>
